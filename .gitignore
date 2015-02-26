@@ -1,0 +1,9 @@
+*.jipo
+*.jiproj
+*.jungle
+*.jilayout
+
+*.build*/*
+*.data/*
+
+strict_mojo_game_project.monkey
