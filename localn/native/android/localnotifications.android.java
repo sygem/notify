@@ -45,7 +45,7 @@ class NativeLocalNotification {
 
     public void NativeScheduleAfter(int seconds) {
         
-        Log.d("Notify","NativeScheduleAfter");
+        Log.d("Notify","NativeScheduleAfter: "+seconds);
         
         AlarmManager alarmManager = (AlarmManager)BBAndroidGame.AndroidGame().GetActivity().getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(BBAndroidGame.AndroidGame().GetActivity(), AlarmNotification.class);
@@ -67,9 +67,12 @@ class NativeLocalNotification {
         intent.putStringArrayListExtra("_keys", extraKeys);
         intent.putStringArrayListExtra("_values", extraValues);
         
+        Calendar nextAlarm = Calendar.getInstance();
+        nextAlarm.add(Calendar.SECOND, seconds);
+        
         PendingIntent pendingIntent = PendingIntent.getBroadcast(BBAndroidGame.AndroidGame().GetActivity(), _id, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         
-        alarmManager.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + (seconds*1000), pendingIntent);
+        alarmManager.set(AlarmManager.RTC_WAKEUP, nextAlarm.getTimeInMillis(), pendingIntent);
         
     }
     
